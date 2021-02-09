@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+crud-rest-api.iml
+mvnw
+mvnw.cmd
+.mvn
+.mvn/wrapper
+HELP.md
+target
+target/*
