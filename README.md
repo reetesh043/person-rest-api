@@ -243,23 +243,30 @@ docker run -p 9080:9080 person-rest-api
 
 ### Health Check
 
-It will provide the status if api is up and running:
+* It will provide the status if api is up and running:
 
 ```
 http://localhost:9080/person-rest-api/v1/actuator/health
 ```
 ### Documentation
 
-Api documentation will be available at:
+* Api documentation will be available at:
 
 ```
 http://localhost:9080/person-rest-api/v1/v2/api-docs
 ```
 
-Api swagger will be  available at:
+* Api swagger will be  available at:
 
 ```
 http://localhost:9080/person-rest-api/v1/swagger-ui.html
+```
+
+* Api swagger is also available at:
+
+```
+https://github.com/reetesh043/person-rest-api/blob/main/src/main/resources/person-rest-api_swagger.yaml
+
 ```
 
 ### Postman collection for testing
