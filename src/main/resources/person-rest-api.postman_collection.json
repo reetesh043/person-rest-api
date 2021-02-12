@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "32484969-1dd4-4fbd-8cb2-8fb8ef6d644f",
+		"name": "person-rest-api",
+		"description": "swagger: '2.0'\ninfo:\n  description: '\"Spring Boot REST API Performing CRUD Operation\"'\n  version: 1.0.0\n  title: REST API Performing CRUD Operation\nhost: 'localhost:9080'\nbasePath: /crud-rest-api/v1\ntags:\n  - name: person-controller\n    description: Person Controller\npaths:\n  /persons:\n    get:\n      tags:\n        - person-controller\n      summary: getAllPersons\n      operationId: getAllPersonsUsingGET\n      produces:\n        - '*/*'\n      responses:\n        '200':\n          description: OK\n          schema:\n            $ref: '#/definitions/Response'\n        '401':\n          description: Unauthorized\n        '403':\n          description: Forbidden\n        '404':\n          description: Not Found\n      deprecated: false\n    post:\n      tags:\n        - person-controller\n      summary: createPerson\n      operationId: createPersonUsingPOST\n      consumes:\n        - application/json\n      produces:\n        - '*/*'\n      parameters:\n        - in: body\n          name: request\n          description: request\n          required: true\n          schema:\n            $ref: '#/definitions/Request'\n      responses:\n        '201':\n          description: Created\n          schema:\n            $ref: '#/definitions/Response'\n        '401':\n          description: Unauthorized\n        '403':\n          description: Forbidden\n        '404':\n          description: Not Found\n      deprecated: false\n  '/persons/{id}':\n    get:\n      tags:\n        - person-controller\n      summary: getPersonById\n      operationId: getPersonByIdUsingGET\n      produces:\n        - '*/*'\n      parameters:\n        - name: id\n          in: path\n          description: id\n          required: true\n          type: integer\n          format: int64\n      responses:\n        '200':\n          description: OK\n          schema:\n            $ref: '#/definitions/Response'\n        '401':\n          description: Unauthorized\n        '403':\n          description: Forbidden\n        '404':\n          description: Not Found\n      deprecated: false\n    put:\n      tags:\n        - person-controller\n      summary: updatePerson\n      operationId: updatePersonUsingPUT\n      consumes:\n        - application/json\n      produces:\n        - '*/*'\n      parameters:\n        - name: id\n          in: path\n          description: id\n          required: true\n          type: integer\n          format: int64\n        - in: body\n          name: request\n          description: request\n          required: true\n          schema:\n            $ref: '#/definitions/Request'\n      responses:\n        '200':\n          description: OK\n          schema:\n            $ref: '#/definitions/Response'\n        '201':\n          description: Created\n        '401':\n          description: Unauthorized\n        '403':\n          description: Forbidden\n        '404':\n          description: Not Found\n      deprecated: false\n    delete:\n      tags:\n        - person-controller\n      summary: deletePerson\n      operationId: deletePersonUsingDELETE\n      produces:\n        - '*/*'\n      parameters:\n        - name: id\n          in: path\n          description: id\n          required: true\n          type: integer\n          format: int64\n      responses:\n        '200':\n          description: OK\n        '204':\n          description: No Content\n        '401':\n          description: Unauthorized\n        '403':\n          description: Forbidden\n      deprecated: false\ndefinitions:\n  Person:\n    type: object\n    properties:\n      age:\n        type: string\n      favourite_colour:\n        type: string\n      first_name:\n        type: string\n      id:\n        type: integer\n        format: int64\n      last_name:\n        type: string\n    title: Person\n  Request:\n    type: object\n    properties:\n      person:\n        type: array\n        items:\n          $ref: '#/definitions/Person'\n    title: Request\n  Response:\n    type: object\n    properties:\n      person:\n        type: array\n        items:\n          $ref: '#/definitions/Person'\n    title: Response\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete-operation",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9080/person-rest-api/v1/persons/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"person-rest-api",
+						"v1",
+						"persons",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get person by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9080/person-rest-api/v1/persons/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"person-rest-api",
+						"v1",
+						"persons",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create person",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"person\": [\n        {\n            \"first_name\": \"John\",\n            \"last_name\": \"Keynes\",\n            \"age\": \"29\",\n            \"favourite_colour\": \"red\"\n        },\n        {\n            \"first_name\": \"Sarah\",\n            \"last_name\": \"Singh\",\n            \"age\": \"54\",\n            \"favourite_colour\": \"blue\"\n        },\n                {\n            \"first_name\": \"DON\",\n            \"last_name\": \"Kumar\",\n            \"age\": \"34\",\n            \"favourite_colour\": \"blue\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9080/person-rest-api/v1/persons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"person-rest-api",
+						"v1",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all persons",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9080/person-rest-api/v1/persons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"person-rest-api",
+						"v1",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update person",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"person\": [\n        {\n            \"first_name\": \"John\",\n            \"last_name\": \"Keynes\",\n            \"age\": \"29\",\n            \"favourite_colour\": \"red\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9080/person-rest-api/v1/persons/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"person-rest-api",
+						"v1",
+						"persons",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,24 +1,17 @@
 package com.crud.rest.api.service;
 
-import com.crud.rest.api.domain.Person;
-import com.crud.rest.api.domain.PersonEntity;
-
+import com.crud.rest.api.model.Person;
 import java.util.List;
 
 public interface PersonService {
 
-    Person findByName(String name);
+    List<Person> getAllPersons();
 
-    Person findByColor(String color);
+    Person getPersonById(Long personId);
 
-    List<Person> findAll();
+    List<Person> create(List<Person> personList);
 
-    Person update(String name, Person person);
+    void deletePersonById(Long personId);
 
-    void saveAll(List<Person> persons);
-
-    List<Person> deleteByName(String name);
-
-    List<Person> deleteByColor(String name);
-
+    Person updatePerson(Long personId, List<Person> person);
 }

@@ -1,23 +1,16 @@
 package com.crud.rest.api.controller;
 
-import com.crud.rest.api.domain.Person;
-import com.crud.rest.api.domain.PersonEntity;
 import com.crud.rest.api.exception.ResourceNotFoundException;
+import com.crud.rest.api.model.Person;
+import com.crud.rest.api.model.Request;
+import com.crud.rest.api.model.Response;
 import com.crud.rest.api.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,45 +20,52 @@ import java.util.List;
  */
 
 @RestController
-@Validated
-@RequestMapping("/api/v1")
+@RequestMapping("/persons")
 public class PersonController {
 
+    private final PersonService personService;
+
+
     @Autowired
-    private PersonService personService;
-
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Person> getAllPersons() {
-        return personService.findAll();
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
-    @GetMapping(value = "/persons/{name}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Person getPersonByName(@PathVariable(value = "name") String name)
+    public Response getAllPersons() {
+
+        return new Response(personService.getAllPersons());
+    }
+
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Response getPersonById(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-
-        return personService.findByName(name);
-
+        Person person = personService.getPersonById(id);
+        List<Person> personList = new ArrayList<>();
+        personList.add(person);
+        return new Response(personList);
     }
 
-    @PostMapping(value = "/persons", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPerson(@Valid @RequestBody List<Person> personList) {
-
-        personService.saveAll(personList);
+    public Response createPerson(@Valid @RequestBody Request request) {
+        return new Response(personService.create(request.getPerson()));
     }
 
-    @PutMapping(value = "/persons/{name}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public Person updatePersonByName(@PathVariable(value = "name") String name, @Valid @RequestBody Person personDetail) {
-        return personService.update(name, personDetail);
+    @PutMapping("/{id}")
+    public Response updatePerson(@PathVariable(value = "id") Long personId,
+                                 @Valid @RequestBody Request request) {
+
+        Person person = personService.updatePerson(personId, request.getPerson());
+        List<Person> personList = new ArrayList<>();
+        personList.add(person);
+        return new Response(personList);
     }
 
-    @DeleteMapping(value = "/persons/{name}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Person> deletePersonByName(@PathVariable(value = "name") String name) {
-        return personService.deleteByName(name);
-
+    @DeleteMapping("/{id}")
+    public void deletePerson(@PathVariable(value = "id") Long personId) {
+        personService.deletePersonById(personId);
     }
 }
