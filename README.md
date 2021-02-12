@@ -261,3 +261,9 @@ Api swagger will be  available at:
 ```
 http://localhost:9080/person-rest-api/v1/swagger-ui.html
 ```
+
+### Postman collection for testing
+```
+https://github.com/reetesh043/person-rest-api/blob/main/src/main/resources/person-rest-api.postman_collection.json
+
+```
