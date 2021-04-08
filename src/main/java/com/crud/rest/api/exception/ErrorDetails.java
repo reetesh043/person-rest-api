@@ -5,7 +5,6 @@ import java.util.Date;
 /**
  * The {@code ErrorDetails} class represents error object.
  * ErrorDetails object is constructed and sent as error response from api when an error is handled by {@link ExceptionResolver}
- * @author soundar
  */
 public final class ErrorDetails {
     private final String timestamp;
